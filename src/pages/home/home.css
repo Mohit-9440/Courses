@@ -3,7 +3,6 @@ body {
   padding: 0;
 }
 .home-page {
-  /* padding: 40px 0px; */
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -23,9 +22,7 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-.home-top-banner-right {
-  /* width: 40%; */
-}
+
 .home-top-banner-left-heading {
   color: #1f1c14;
   font-family: "Urbanist";
@@ -85,7 +82,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  /* width: 50%; */
 }
 .home-second-section-left-heading {
   color: #1f1c14;
@@ -106,7 +103,7 @@ body {
   line-height: 130%;
 }
 .home-second-section-right {
-  width: 50%;
+  /* width: 50%; */
 }
 
 /*Third Section*/
@@ -184,4 +181,45 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+}
+@media (max-width: 768px) {
+  .home-third-section-bottom-cards-wrapper{
+    flex-direction: column;
+  }
+  .home-third-section{
+    padding-inline: 40px;
+  }
+  .home-top-banner-left {
+    width: 100%;
+}
+  .home-top-banner-right {
+    display: none;
+}
+.home-second-section-left{
+  width: 100%;
+}
+.home-second-section-right{
+  display: none;
+}
+}
+@media (max-width: 480px) {
+  .home-top-banner-wrapper{
+    padding-inline: 40px;
+  }
+  .home-top-banner {
+    padding-inline: 10px;
+  }
+  .home-second-section-wrapper{
+    padding-inline: 40px;
+  }
+  .home-second-section{
+    padding-inline: 10px;
+  }
+  .home-third-section-wrapper{
+    padding-inline: 40px;
+  }
+  .home-third-section{
+    padding-inline: 10px;
+  }
+
 }
