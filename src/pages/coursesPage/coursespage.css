@@ -63,6 +63,8 @@ body {
     font-weight: 600;
     line-height: 150%;
     letter-spacing: 0.12px;
+  }
+  .courses-top-banner-left-button-text a{
     text-decoration: none;
   }
   .course-banner{

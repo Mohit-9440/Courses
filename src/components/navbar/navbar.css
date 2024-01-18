@@ -13,7 +13,6 @@
   width: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 .navbar-right {
   display: flex;
@@ -30,10 +29,10 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  text-decoration: none;
 }
 .navbar-right-button a{
     color: #1f1c14 !important;
+    text-decoration: none;
 }
 .navbar-right-button:hover {
   color: #fab900;
