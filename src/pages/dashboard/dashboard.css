@@ -40,12 +40,22 @@ line-height: 150%;
     height: 120px;
     width: 100%;
   }
+  .dashboard-bottom-card{
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 50px 80px 0px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    margin-bottom: 30px;
+  }
   .dashboard-bottom-card-bottom {
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     justify-content: space-between;
+    height: 100%;
   }
   .dashboard-bottom-card-bottom-heading {
     color: #1f1c14;

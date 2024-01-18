@@ -3,6 +3,7 @@ import './dashboard.css';
 import { Navbar } from '../../components/navbar/Navbar';
 import LinearProgressCountUp from '../../components/LinearProgressCount';
 export const Dashboard = () => {
+
   // Dummy data for enrolled courses
   const [enrolledCourses, setEnrolledCourses] = useState([
     {
@@ -62,7 +63,6 @@ export const Dashboard = () => {
     
   ]);
 
-  // Function to handle marking a course as completed
   const handleMarkAsCompleted = (courseId) => {
     setEnrolledCourses((prevCourses) =>
       prevCourses.map((course) =>
