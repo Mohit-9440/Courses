@@ -6,6 +6,7 @@ import SecondBanner from "../../assets/home-second-banner.png";
 import Svg1 from "../../assets/svg1.svg";
 import Svg2 from "../../assets/svg2.svg";
 import Svg3 from "../../assets/svg3.svg";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   return (
@@ -27,7 +28,7 @@ export const Home = () => {
                 </div>
                 <div className="home-top-banner-left-button">
                   <div className="home-top-banner-left-button-text">
-                    Get Started!
+                   <Link to={"/courses"}>Get Started!</Link>
                   </div>
                 </div>
               </div>
