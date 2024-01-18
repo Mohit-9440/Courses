@@ -1,19 +1,65 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { styled, alpha } from "@mui/material/styles";
 import "./coursespage.css";
 import { Navbar } from "../../components/navbar/Navbar";
 import Banner from "../../assets/courses-banner-img.png";
-import Background from "../../assets/Rectangle.png";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import { InputBase, Skeleton } from "@mui/material";
 
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  width: "100%",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    [theme.breakpoints.up("sm")]: {
+      width: "30ch",
+      "&:focus": {
+        width: "80ch",
+      },
+    },
+  },
+}));
 export const CoursesPage = () => {
   const [coursesData, setCoursesData] = useState(null);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://coursesdata.free.mockoapp.net/coursesData");
+        const response = await fetch(
+          "https://coursesdata.free.mockoapp.net/coursesData"
+        );
         const data = await response.json();
         setCoursesData(data);
-        console.log("🚀 ~ fetchData ~ data:", data)
       } catch (error) {
         console.error("Error fetching courses data:", error);
       }
@@ -21,6 +67,26 @@ export const CoursesPage = () => {
 
     fetchData();
   }, []);
+  const handleClick = (course) => {
+    navigate({
+      pathname: `/coursedetails/${course.id}`,
+      state: { courseData: course },
+    });
+  };
+  const handleLike = (courseId) => {
+    setCoursesData((prevCourses) =>
+      prevCourses.map((course) =>
+        course.id === courseId ? { ...course, liked: !course.liked } : course
+      )
+    );
+  };
+  const filteredCourses =
+    coursesData &&
+    coursesData.filter(
+      (course) =>
+        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.instructor.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   return (
     <div className="courses-wrapper">
       <div className="courses">
@@ -48,36 +114,72 @@ export const CoursesPage = () => {
               </div>
             </div>
           </section>
-          <section className="courses-course-wrapper">
-            <div className="courses-course-container">
-            {coursesData && coursesData.map((course, index) => (
-              <div key={index} className="courses-course-card">
-                <div className="courses-course-card-top">
-                  <img
-                    className="courses-course-card-top-svg"
-                    src={course.thumbnail}
-                    alt=""
+          <section className="courses-mid-wrapper">
+            <div className="courses-mid-main">
+              <div className="courses-mid-main-search-box">
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search Courses, Instructors, etc......"
+                    inputProps={{ "aria-label": "search" }}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                </div>
-                <div className="courses-course-card-bottom">
-                  <div className="courses-course-card-bottom-first">
-                    <div className="courses-course-card-bottom-heading">
-                    {course.name}
-                    </div>
-                    <div className="courses-course-card-bottom-content">
-                    {course.description}
-                    </div>
-                  </div>
-                  <div className="courses-course-card-bottom-second">
-                    <div className="courses-course-card-bottom-second-ins">{course.instructor}</div>
-                    <div className="courses-course-card-bottom-second-price">₹{course.price}</div>
-                  </div>
-                </div>
+                </Search>
               </div>
-              ))}
             </div>
           </section>
-          <section></section>
+          <section className="courses-course-wrapper">
+            <div className="courses-course-container">
+              <Suspense
+                fallback={
+                  <Skeleton
+                    animation="wave"
+                    variant="rectangular"
+                    width={600}
+                    height={400}
+                  />
+                }
+              >
+                {filteredCourses &&
+                  filteredCourses.map((course, index) => (
+                    <div key={index} className="courses-course-card">
+                      <div className="courses-course-card-top">
+                        <img
+                          className="courses-course-card-top-svg"
+                          src={course.thumbnail}
+                          onClick={() => handleClick(course)}
+                          alt=""
+                        />
+                      </div>
+                      <div className="courses-course-card-bottom">
+                        <div className="courses-course-card-bottom-first">
+                          <div
+                            className="courses-course-card-bottom-heading"
+                            onClick={() => handleClick(course)}
+                          >
+                            {course.name}
+                          </div>
+                          <div className="courses-course-card-bottom-content">
+                            {course.description}
+                          </div>
+                        </div>
+                        <div className="courses-course-card-bottom-second">
+                          <div className="courses-course-card-bottom-second-ins">
+                            {course.instructor}
+                          </div>
+                          <div className="courses-course-card-bottom-second-price">
+                            ₹{course.price}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </Suspense>
+            </div>
+          </section>
         </div>
       </div>
     </div>
