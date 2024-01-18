@@ -63,6 +63,7 @@ body {
     font-weight: 600;
     line-height: 150%;
     letter-spacing: 0.12px;
+    text-decoration: none;
   }
   .course-banner{
     width: 200px;
@@ -88,6 +89,7 @@ body {
     flex-direction: column;
     padding: 20px 20px;
     margin-bottom: 30px;
+    cursor: pointer;
   }
   .courses-course-card-top {
     display: flex;
@@ -169,6 +171,7 @@ body {
       display: none;
   }
   }
+  
   @media (max-width: 480px) {
     .courses-course-container {
       grid-template-columns: repeat(1, 1fr);
@@ -179,5 +182,10 @@ body {
     }
     .courses-top-banner-left-button-text {
       font-size: 18px;
+    }
+  }
+  @media (max-width: 380px) {
+    .courses-top-banner{
+      padding: 20px 30px;
     }
   }

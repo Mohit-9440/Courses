@@ -145,12 +145,11 @@ export const CoursesPage = () => {
               >
                 {filteredCourses &&
                   filteredCourses.map((course, index) => (
-                    <div key={index} className="courses-course-card">
+                    <div key={index} className="courses-course-card" onClick={() => handleClick(course)}>
                       <div className="courses-course-card-top">
                         <img
                           className="courses-course-card-top-svg"
                           src={course.thumbnail}
-                          onClick={() => handleClick(course)}
                           alt=""
                         />
                       </div>
@@ -158,7 +157,6 @@ export const CoursesPage = () => {
                         <div className="courses-course-card-bottom-first">
                           <div
                             className="courses-course-card-bottom-heading"
-                            onClick={() => handleClick(course)}
                           >
                             {course.name}
                           </div>

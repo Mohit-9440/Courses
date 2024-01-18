@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './dashboard.css';
 import { Navbar } from '../../components/navbar/Navbar';
+// import { useNavigate } from "react-router-dom";
+
 import LinearProgressCountUp from '../../components/LinearProgressCount';
 export const Dashboard = () => {
+  // const navigate = useNavigate();
 
   // Dummy data for enrolled courses
   const [enrolledCourses, setEnrolledCourses] = useState([
@@ -70,7 +73,12 @@ export const Dashboard = () => {
       )
     );
   };
-
+  // const handleClick = (course) => {
+  //   navigate({
+  //     pathname: `/coursedetails/${course.id}`,
+  //     state: { courseData: course },
+  //   });
+  // };
   return (
     <div className="dashboard-wrapper">
       <div className="dashboard">
@@ -82,7 +90,9 @@ export const Dashboard = () => {
           <section className="dashboard-bottom-wrapper">
             <div className="dashboard-bottom-container">
               {enrolledCourses.map((course) => (
-                <div key={course.id} className="dashboard-bottom-card">
+                <div key={course.id} className="dashboard-bottom-card"
+                //  onClick={() => handleClick(course)}
+                 >
                   <div className="dashboard-bottom-card-top">
                     <img
                       className="dashboard-bottom-card-top-svg"
